@@ -48,6 +48,7 @@ class Goal_ListPage extends StatelessWidget{
           ),
           Expanded(
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20,),
@@ -64,6 +65,7 @@ class Goal_ListPage extends StatelessWidget{
                   ],
                 ),
                 Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     SizedBox(width: 10,),
                     Text(
