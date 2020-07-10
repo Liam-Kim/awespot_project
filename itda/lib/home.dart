@@ -51,13 +51,13 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.black,
+          color: HexColor("#55965e"),
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.help,
-              color: Colors.black,
+              color: HexColor("#fbb359"),
             ),
             onPressed: (){
               Navigator.push(
@@ -152,6 +152,7 @@ class _HomePageState extends State<HomePage> {
                               Icon(
                                 Icons.control_point,
                                 size: 20,
+                                color: HexColor("#fbb359"),
                               ),
                             ],
                           ),
@@ -164,6 +165,7 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
+                                  color: HexColor("#fbb359"),
                                 ),
                               ),
                               SizedBox(width: 10,),
@@ -177,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: HexColor("#55965e"),
                 ),
               ),
             ),
@@ -208,9 +210,9 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 100),
           Center(
             child: Container(
-              width: 80,
+              width: 100,
               height: 80,
-              child: Image.asset('assets/Itda_black.png'),
+              child: Image.asset('assets/Font.png'),
             ),
           ),
           Row(
@@ -223,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Icon(
                   Icons.star,
-                  color: Colors.black,
+                  color: HexColor("#fbb359"),
                   size: 15,
                 ),
                 Container(
@@ -252,7 +254,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Text(
-                        "을",
+                        "님을",
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -271,12 +273,53 @@ class _HomePageState extends State<HomePage> {
                 height: 50.0,
                 child: RaisedButton(
                     onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MakeMeal()));
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    color: HexColor("#55965e"),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 60, 0),
+                          child: Icon(
+                            Icons.restaurant,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 60, 0),
+                          child: Text(
+                            "식사를 잇다",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                )
+            ),
+          ),
+          SizedBox(height: 30),
+          Center(
+            child: ButtonTheme(
+                minWidth: 200.0,
+                height: 50.0,
+                child: RaisedButton(
+                    onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ConnectHeart()));
                     },
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
-                    color: Colors.black,
+                    color: HexColor("#55965e"),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -315,9 +358,9 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => Goal_ListPage()));
                     },
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
-                    color: Colors.black,
+                    color: HexColor("#55965e"),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -346,50 +389,22 @@ class _HomePageState extends State<HomePage> {
                 )
             ),
           ),
-          SizedBox(height: 30),
-          Center(
-            child: ButtonTheme(
-                minWidth: 200.0,
-                height: 50.0,
-                child: RaisedButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MakeMeal()));
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                    color: Colors.black,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 60, 0),
-                          child: Icon(
-                            Icons.restaurant,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 60, 0),
-                          child: Text(
-                            "식사를 잇다",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                )
-            ),
-          ),
         ],
       )
       // TODO: Set resizeToAvoidBottomInset (101)
     );
   }
+}
+
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

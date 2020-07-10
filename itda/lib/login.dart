@@ -51,13 +51,14 @@ class _LoginPageState extends State<LoginPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 100,),
+          SizedBox(height: 150,),
           Center(
+
             child: Container(
-              width: 80,
-              height: 80,
-              child: Image.asset('assets/Itda_black.png'),
-            ),
+              height: 120,
+              width: 120,
+              child: Image.asset('assets/Font.png'),
+            )
           ),
           SizedBox(height: 50),
           Expanded(
@@ -67,61 +68,110 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
 
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-
-                      SizedBox(height: 16.0),
-                    ],
-                  ),
-                  SizedBox(height: 120.0),
+                  SizedBox(height: 90.0),
                   Form(
                     key: _loginKey,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        TextFormField(
-                          decoration: InputDecoration(
-                              labelText: 'Email',
+                        Center(
+                          child: Row(
+                            children: [
+                              Container(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.fromLTRB(10,0,0,0),
+                                    border: InputBorder.none,
+                                    labelText: '아이디',
+                                    filled: true,
+                                    fillColor: HexColor("#e9f4eb"),
+                                  ),
+                                  validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+                                  onSaved: (value) => _email = value,
+                                ),
+                                width: 300,
+                              ),
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
                           ),
-                          validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-                          onSaved: (value) => _email = value,
                         ),
                         SizedBox(height: 20,),
-                        TextFormField(
-                          decoration: InputDecoration(labelText: 'Password'),
-                          validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
-                          onSaved: (value) => _password = value,
-                          obscureText: true,
+                        Center(
+                          child: Container(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.fromLTRB(10,0,0,0),
+                                border: InputBorder.none,
+                                labelText: '비밀번호',
+                                filled: true,
+                                fillColor: HexColor("#e9f4eb"),
+                              ),
+                              validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
+                              onSaved: (value) => _password = value,
+                              obscureText: true,
+                            ),
+                            width: 300,
+                          ),
+
                         ),
+
                       ],
                     ),
                   ),
-                  ButtonBar(
-                    children: <Widget>[
-                      FlatButton(
-                        child: Text('취소'),
-                        onPressed: () {
-                          _usernameController.clear();
-                          _passwordController.clear();
-                        },
+                  SizedBox(height: 45,),
+                  Center(
+                    child: Container(
+                      width: 300,
+                      child: Row(
+                        children: [
+                          RaisedButton(
+                            padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: BorderSide(color: HexColor("#53975c")),
+                            ),
+                            child: Text(
+                                '회원가입',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SignupPage()));
+                            },
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                RaisedButton(
+                                  padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                  color: HexColor("#55965e"),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Text(
+                                    '로그인',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    validateAndSubmit();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      RaisedButton(
-                        child: Text('회원가입'),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SignupPage()));
-                        },
-                      ),
-                      RaisedButton(
-                        child: Text('다음'),
-                        onPressed: () {
-                          validateAndSubmit();
-                        },
-                      ),
-                    ],
+                    ),
                   ),
-
                 ],
               ),
             ),
@@ -183,4 +233,16 @@ class CustomTextField extends StatelessWidget {
       ),
     );
   }
+}
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
