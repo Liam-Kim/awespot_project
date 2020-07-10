@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:itda/login.dart';
 import 'package:itda/makeMeal.dart';
 import 'goal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'help.dart';
 import 'connectHeart.dart';
 import 'makeMeal.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,11 +18,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Firestore _firestore = Firestore.instance;
   FirebaseUser user ;
-  String email="emial";
-  String nickname="nick";
-  String school = "school";
-  String grade = "grade";
-  String clas = "class";
+  String email="이메일";
+  String nickname="닉네임";
+  String school = "학교";
+  String grade = "학년";
+  String clas = "반";
   int point = -1;
   dynamic data;
 
@@ -184,12 +186,24 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.backspace,
+                    color: HexColor("#707070"),
+                    size: 20,
+                  ),
+                  Text(
+                    "  종료하기",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  )
+                ],
+              ),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+                SystemNavigator.pop();
               },
             ),
             ListTile(
