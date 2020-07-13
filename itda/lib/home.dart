@@ -23,12 +23,13 @@ class _HomePageState extends State<HomePage> {
   String school = "학교";
   String grade = "학년";
   String clas = "반";
-  int point = -1;
+  int point = 0;
   dynamic data;
 
   Future<String> getUser () async {
     user = await FirebaseAuth.instance.currentUser();
     DocumentReference documentReference =  Firestore.instance.collection("loginInfo").document(user.email);
+
     await documentReference.get().then<dynamic>(( DocumentSnapshot snapshot) async {
       setState(() {
         nickname =snapshot.data["nickname"];
@@ -47,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getUser();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

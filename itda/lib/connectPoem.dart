@@ -103,51 +103,6 @@ class _ConnectPoemState extends State<ConnectPoem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 
-                    DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Text(
-                            '아이디',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            '제목',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            '♥ ★',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                      rows: const <DataRow>[
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('소리')),
-                            DataCell(Text('엄마생각')),
-                            DataCell(Text('3 5')),
-                          ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('사랑')),
-                            DataCell(Text('눈사람')),
-                            DataCell(Text('40 90')),
-                          ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('잇다')),
-                            DataCell(Text('하얀눈')),
-                            DataCell(Text('65 7')),
-                          ],
-                        ),
-                      ],
-                    ),
                   ],
                 ))
           ])

@@ -9,7 +9,6 @@ import 'help.dart';
 var Pass;
 class Goal_ListPage extends StatelessWidget{
 
-
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection('loginInfo').snapshots(),
@@ -27,7 +26,6 @@ class Goal_ListPage extends StatelessWidget{
       padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
       childAspectRatio: 8.0 / 9.0,
       children: snapshot.map((data) => _buildGridCards(context, data)).toList(),
-
     );
   }
 
@@ -35,6 +33,11 @@ class Goal_ListPage extends StatelessWidget{
     final record = Record.fromSnapshot(data);
 
     return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(width: 1, color: Colors.green),
+      ),
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,73 +50,91 @@ class Goal_ListPage extends StatelessWidget{
             )
           ),
           Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20,),
-                Row(
-                  children: [
-                    SizedBox(width: 10,),
-                    Text(
-                      record.nickname,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(width: 10,),
-                    Text(
-                      record.school,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      " "+record.grade+"학년",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      " " + record.clas + "반",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap:() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => GoalPage(email: record.email)));
-                    },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10,10,0,0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Row(
                     children: [
-                      Text(
-                        "더보기",
+                      SizedBox(width: 10,),
+                      FittedBox(
+                        fit:BoxFit.cover,
+                        child: Text(
+                        record.nickname,
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  FittedBox(
+                    fit:BoxFit.cover,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        SizedBox(width: 10,),
+                        Text(
+                          record.school,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: HexColor("#b4c7bb"),
+                          ),
+                        ),
+                        Text(
+                          " "+record.grade+"학년",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: HexColor("#b4c7bb"),
+                          ),
+                        ),
+                        Text(
+                          " " + record.clas + "반",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: HexColor("#b4c7bb"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap:() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => GoalPage(email: record.email)));
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "더보기",
+                                  style: TextStyle(
+                                    color: HexColor("#fbb359"),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                SizedBox(width: 10,),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                  ),
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -121,6 +142,8 @@ class Goal_ListPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
