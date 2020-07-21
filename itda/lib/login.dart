@@ -30,14 +30,14 @@ class _LoginPageState extends State<LoginPage> {
   void validateAndSubmit() async {
     if (form.validate()) {
       try {
-          form.save();
-          FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-              email: _email, password: _password)).user;
-          print('Signed In: ${user.uid}');
-          Navigator.of(context).pop();
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()));
+        form.save();
+        FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+            email: _email, password: _password)).user;
+        print('Signed In: ${user.uid}');
+        Navigator.of(context).pop();
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()));
       } catch (e) {
         print('Error: $e');
       }
@@ -47,21 +47,24 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+    var screenHeight = queryData.size.height;
+    var screenWidth = queryData.size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 150,),
+          SizedBox(height: screenHeight*0.2,),
           Center(
-
-            child: Container(
-              height: 120,
-              width: 120,
-              child: Image.asset('assets/Font.png'),
-            )
+              child: Container(
+                height: 120,
+                width: 120,
+                child: Image.asset('assets/Font.png'),
+              )
           ),
-          SizedBox(height: 50),
+          SizedBox(height: screenHeight*0.1,),
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -69,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
 
                 children: <Widget>[
-                  SizedBox(height: 90.0),
+                  SizedBox(height: screenHeight*0.1,),
                   Form(
                     key: _loginKey,
                     child: Column(
@@ -89,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                                   validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
                                   onSaved: (value) => _email = value,
                                 ),
-                                width: 300,
+                                width: screenWidth*0.7,
                               ),
                             ],
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -110,29 +113,27 @@ class _LoginPageState extends State<LoginPage> {
                               onSaved: (value) => _password = value,
                               obscureText: true,
                             ),
-                            width: 300,
+                            width: screenWidth*0.7,
                           ),
-
                         ),
-
                       ],
                     ),
                   ),
                   SizedBox(height: 45,),
                   Center(
                     child: Container(
-                      width: 300,
+                      width: screenWidth*0.7,
                       child: Row(
                         children: [
                           RaisedButton(
-                            padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
+                            padding: EdgeInsets.fromLTRB(screenWidth*0.1,screenHeight*0.02,screenWidth*0.1,screenHeight*0.02),
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                side: BorderSide(color: HexColor("#53975c")),
+                              borderRadius: BorderRadius.circular(10.0),
+                              side: BorderSide(color: HexColor("#53975c")),
                             ),
                             child: Text(
-                                '회원가입',
+                              '회원가입',
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -149,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 RaisedButton(
-                                  padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                  padding: EdgeInsets.fromLTRB(screenWidth*0.11,screenHeight*0.02,screenWidth*0.11,screenHeight*0.02),
                                   color: HexColor("#55965e"),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),

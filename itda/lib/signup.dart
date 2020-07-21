@@ -36,18 +36,18 @@ class _SignupPageState extends State<SignupPage> {
 
     if (form.validate()) {
       try {
-          form.save();
-          FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
-              email: _email, password: _password))
-              .user;
-          print('Registered User: ${user.uid}');
-          createRecord(_email,
-              _nicknameController.text,
-              _schoolController.text,
-              _gradeController.text,
-              _classController.text,
-            _dreamController.text,
-          );
+        form.save();
+        FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+            email: _email, password: _password))
+            .user;
+        print('Registered User: ${user.uid}');
+        createRecord(_email,
+          _nicknameController.text,
+          _schoolController.text,
+          _gradeController.text,
+          _classController.text,
+          _dreamController.text,
+        );
       } catch (e) {
 
         print('Error1: $e');

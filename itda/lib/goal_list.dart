@@ -30,8 +30,11 @@ class Goal_ListPage extends StatelessWidget{
   }
 
   Widget _buildGridCards(BuildContext context, DocumentSnapshot data) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+    var screenHeight = queryData.size.height;
+    var screenWidth = queryData.size.width;
     final record = Record.fromSnapshot(data);
-
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -43,15 +46,15 @@ class Goal_ListPage extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AspectRatio(
-            aspectRatio: 18 / 11,
-            child: Image.asset(
-              'assets/user.png',
-              fit: BoxFit.contain,
-            )
+              aspectRatio: 18 / 11,
+              child: Image.asset(
+                'assets/user.png',
+                fit: BoxFit.contain,
+              )
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.fromLTRB(10,10,0,0),
+              padding: EdgeInsets.fromLTRB(10,0,0,0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -62,12 +65,12 @@ class Goal_ListPage extends StatelessWidget{
                       FittedBox(
                         fit:BoxFit.cover,
                         child: Text(
-                        record.nickname,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          record.nickname,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth*0.04,
+                          ),
                         ),
-                      ),
                       ),
                     ],
                   ),
@@ -81,7 +84,7 @@ class Goal_ListPage extends StatelessWidget{
                           record.school,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 13,
+                            fontSize: screenWidth*0.03,
                             color: HexColor("#b4c7bb"),
                           ),
                         ),
@@ -105,32 +108,33 @@ class Goal_ListPage extends StatelessWidget{
                     ),
                   ),
                   Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap:() {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => GoalPage(email: record.email)));
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "더보기",
-                                  style: TextStyle(
-                                    color: HexColor("#fbb359"),
-                                    fontSize: 15,
-                                  ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap:() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => GoalPage(email: record.email)));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "더보기",
+                                style: TextStyle(
+                                  color: HexColor("#fbb359"),
+                                  fontSize: screenWidth*0.04,
                                 ),
-                                SizedBox(width: 10,),
-                              ],
-                            ),
+                              ),
+                              SizedBox(width: 10,),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                   ),
+                  SizedBox(height: screenWidth*0.02,),
                 ],
               ),
             ),
@@ -147,39 +151,39 @@ class Goal_ListPage extends StatelessWidget{
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: HexColor("#e9f4eb"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              color: HexColor("#fbb359"),
-            ),
-            onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HelpPage()));
-            },
-          )
-        ],
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-                "목표를 ",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+          elevation: 0,
+          backgroundColor: HexColor("#e9f4eb"),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.help,
+                color: HexColor("#fbb359"),
               ),
-            ),
-            Container(
-              width: 28,
-              child: Image.asset("assets/Itda_black.png"),
-            ),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HelpPage()));
+              },
+            )
           ],
-        )
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "목표를 ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                width: 28,
+                child: Image.asset("assets/Itda_black.png"),
+              ),
+            ],
+          )
       ),
       body: _buildBody(context),
     );
@@ -223,4 +227,3 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
-

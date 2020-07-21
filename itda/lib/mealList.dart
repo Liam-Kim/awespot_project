@@ -1,5 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:itda/help.dart';
+import 'package:itda/makeMeal.dart';
+import 'package:itda/readMeal.dart';
 
 class MealList extends StatefulWidget {
   @override
@@ -7,147 +13,293 @@ class MealList extends StatefulWidget {
 }
 
 class _MealListState extends State<MealList> {
+  String mealKey="";
+  Firestore _firestore = Firestore.instance;
+  FirebaseUser user ;
+  String email="이메일";
+  String nickname="닉네임";
+  String school = "학교";
+  String grade = "학년";
+  String clas = "반";
+  int point = -1;
+  dynamic data;
+
+  Future<String> getUser () async {
+    user = await FirebaseAuth.instance.currentUser();
+    DocumentReference documentReference =  Firestore.instance.collection("loginInfo").document(user.email);
+    await documentReference.get().then<dynamic>(( DocumentSnapshot snapshot) async {
+      if(this.mounted) {
+        setState(() {
+          email =snapshot.data["email"];
+          nickname =snapshot.data["nickname"];
+          school = snapshot.data["schoolname"];
+          grade = snapshot.data["grade"];
+          clas = snapshot.data["class"];
+          point = snapshot.data["point"];
+        });
+      }
+    });
+  }
+
+  Future<String> settingDocument () async {
+    DocumentReference documentReference2 = await Firestore.instance.collection('mealingList').add({});
+    print(documentReference2.documentID);
+    if(this.mounted) {
+      setState(() {
+        mealKey = documentReference2.documentID;
+      });
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MakeMeal(mealKey: mealKey)));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF7A9BEE),
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(Icons.arrow_back_ios),
-            color: Colors.white,
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          title: Text('식사를 잇다',
-              style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 18.0,
-                  color: Colors.white)),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color(0xffe9f4eb),
           centerTitle: true,
-          actions: <Widget>[
+          actions: [
             IconButton(
-              icon: Icon(Icons.more_horiz),
-              onPressed: () {},
-              color: Colors.white,
+              icon: Icon(
+                Icons.help,
+                color: Color(0xfffbb359),
+              ),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HelpPage()));
+              },
             )
           ],
-        ),
-        body: ListView(children: [
-          Stack(children: [
-            Positioned(
-              top: 30.0,
-              left: 25.0,
-              right: 25.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('친구들의 식사',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
-                ],
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "식사를 ",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                width: 28,
+                child: Image.asset('assets/Itda_black.png'),
+              ),
+            ],
+          )
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Image(
+                image: AssetImage('assets/oneline.png'),
+                height: 50.0,
               ),
             ),
             Container(
-                height: MediaQuery.of(context).size.height - 82.0,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.transparent),
-            Positioned(
-                top: 75.0,
-                child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(45.0),
-                          topRight: Radius.circular(45.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 45,
+                          height: 45,
+                          child: Image.asset('assets/rice_green.png'),
+                          //color: Colors.white,
                         ),
-                        color: Colors.white),
-                    height: MediaQuery.of(context).size.height - 100.0,
-                    width: MediaQuery.of(context).size.width)),
-            Positioned(
-              top: 120.0, right: 150.0,
-              child: FlatButton(
-                child: Text('글보기'),
-                onPressed: () => {
-                  Navigator.pushNamed(context, '/seep')
-                },
-                color: Colors.blueAccent,
-                textColor:Colors.black,
-              ),
-            ),
-            Positioned(
-              top: 120.0, right: 60.0,
-              child: FlatButton(
-                child: Text('글쓰기'),
-                onPressed: () => {
-                  Navigator.pushNamed(context, '/makM')
-                },
-                color: Colors.blueAccent,
-                textColor:Colors.black,
-              ),
-            ),
-            Positioned(
-                top: 150.0,
-                left: 20.0,
-                right: 20.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Text(
-                            '아이디',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        Container(
+                          width: 10.0,
+                        ),
+                        Container(
+                          child: Text(
+                            '우리들의 식단',
+                            style: TextStyle(
+                              color: Color(0xff53975c),
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Arita-dotum-_OTF",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            '학교',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            '♥ ★',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                      rows: const <DataRow>[
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('소리')),
-                            DataCell(Text('죽장초등학교')),
-                            DataCell(Text('3 5')),
-                          ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('사랑')),
-                            DataCell(Text('포항초등학교')),
-                            DataCell(Text('40 90')),
-                          ],
-                        ),
-                        DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text('잇다')),
-                            DataCell(Text('연일초등학교')),
-                            DataCell(Text('65 7')),
-                          ],
                         ),
                       ],
                     ),
-
-                  ],
-                ))
-          ])
-        ]));
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                          width: 140,
+                          child: Divider(thickness: 1),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Icon(
+                            Icons.star,
+                            color: Color(0xfffbb359),
+                            size: 17,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                          width: 140,
+                          child: Divider(thickness: 1),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Text(
+                        "친구들이 만든 식단은 어떨까요?\n가정에서도, 영양 선생님도 보시고응원해 주세요",
+                        style: TextStyle(
+                          color: Color(0xff000000),
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Arita-dotum-_OTF",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 13,
+                        ),
+                        textAlign: TextAlign.center
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(height: 15.0,),
+            _mlist(),
+            Container(height: 10.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xfffff7ef),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5.0),
+                      bottomLeft: Radius.circular(5.0),
+                    ),
+                  ),
+                  child: GestureDetector(
+                    child: _wPBuildConnectItem('assets/itda_orange.png', '식단짜기'),
+                    onTap: () => {
+                      settingDocument(),
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Container(height: 10.0,),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _wPBuildConnectItem(String wPimgPath, String wPlinkName) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+      width: 80.0,
+      height: 50.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            width: 20,
+            height: 20,
+            child: Image.asset(wPimgPath),
+            //color: Colors.white,
+          ),
+          Container(
+            height: 3.0,
+          ),
+          Container(
+            child: Text(
+              wPlinkName,
+              style: TextStyle(
+                color: Color(0xfffbb359),
+                fontWeight: FontWeight.w700,
+                fontFamily: "Arita-dotum-_OTF",
+                fontStyle: FontStyle.normal,
+                fontSize: 8,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _mlist () {
+    //final srecord = SRecord.fromSnapshot(data);
+    return Expanded(
+      child: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection('mealList').snapshots(),
+          builder: (context, snapshot) {
+            final items = snapshot.data.documents;
+            return ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index];
+                return InkWell(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(
+                          'assets/user.png'),
+                      backgroundColor: Colors.white,
+                    ),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(item['nickname'],
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            //color: Colors.black,
+                          ),
+                        ),
+                        Container(width: 10.0,),
+                        Text(item['school'],
+                          style: TextStyle(
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                    subtitle: Row(
+                      children: <Widget>[
+                        Text(item['grade']),
+                        Text('학년 '),
+                        Text(item['clas']),
+                        Text('반'),
+                      ],
+                    ),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () => {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReadMeal(mealKey: item['mealKey']))),
+                    },
+                    //selected: true,
+                  ),
+                );
+              },
+            );
+          }
+      ),
+    );
   }
 }

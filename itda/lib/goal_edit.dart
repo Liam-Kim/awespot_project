@@ -72,15 +72,15 @@ class _GoalEditPageState extends State<GoalEditPage> {
     return  Container(
       width: width,
       height: height,
-        child:  TextField(
-          controller: _todaytextController,
-          onSubmitted: _todayhandleSubmitted,
-          decoration:  InputDecoration(
-              filled: true,
-              fillColor: HexColor("#fff7ef"),
-              border: InputBorder.none,
-              hintText: todayHint),
-        ),
+      child:  TextField(
+        controller: _todaytextController,
+        onSubmitted: _todayhandleSubmitted,
+        decoration:  InputDecoration(
+            filled: true,
+            fillColor: HexColor("#fff7ef"),
+            border: InputBorder.none,
+            hintText: todayHint),
+      ),
     );
   }
 
@@ -264,12 +264,12 @@ class _GoalEditPageState extends State<GoalEditPage> {
               backgroundColor: HexColor("#e9f4eb"),
               centerTitle: true,
               leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: (){
-                  Navigator.of(context).pop();
-                }
+                  icon: Icon(
+                    Icons.arrow_back,
+                  ),
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  }
               ),
               actions: [
 
@@ -327,7 +327,7 @@ class _GoalEditPageState extends State<GoalEditPage> {
                 Center(
                   child: Container(
                     width: queryData.size.width * 0.6,
-                    height: queryData.size.width * 0.5,
+                    height: queryData.size.width * 0.6,
                     child:  Image.asset(
                       'assets/tree.png',
                       fit: BoxFit.contain,
@@ -376,7 +376,7 @@ class _GoalEditPageState extends State<GoalEditPage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
                   width: queryData.size.width*0.5,
-                  height: queryData.size.height*0.3,
+                  height: queryData.size.height*0.35,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                           Radius.circular(5.0) //                 <--- border radius here
@@ -480,4 +480,3 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
-

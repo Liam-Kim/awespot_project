@@ -15,7 +15,7 @@ class HelpPage extends StatelessWidget{
               color: HexColor("#55965e"),
             ),
             onPressed: () =>
-              Navigator.of(context).pop()
+                Navigator.of(context).pop()
             ,
           )
         ],
@@ -104,53 +104,53 @@ class HelpPage extends StatelessWidget{
                     child: Divider(thickness: 1),
                   ),
                   Container(
-                    width: 320,
-                    height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                             Icon(
-                                Icons.favorite,
-                                size: 40,
-                                color: Colors.black
-                            )
-                          ],
-                        ),
+                      width: 320,
+                      height: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                  Icons.favorite,
+                                  size: 40,
+                                  color: Colors.black
+                              )
+                            ],
+                          ),
 
-                       Padding(
-                         padding: EdgeInsets.fromLTRB(30,10,0,0),
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: <Widget>[
-                             Container(
-                               child: Text(
-                                 "마음을 잇다",
-                                 style: TextStyle(
-                                     fontSize: 20,
-                                     fontWeight: FontWeight.bold,
-                                     color: Colors.black
-                                 ),
-                               ),
-                             ),
-                             Container(
-                               child: Text(
-                                 "시, 이야기, 노래를 통해"
-                                     "나의 마음을 다스리고\n"
-                                     "상대방을 이해하기 위해 노력해 보아요",
-                                 style: TextStyle(
-                                     fontSize: 12,
-                                     fontWeight: FontWeight.bold
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                      ],
-                    )
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(30,10,0,0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    "마음을 잇다",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    "시, 이야기, 노래를 통해"
+                                        "나의 마음을 다스리고\n"
+                                        "상대방을 이해하기 위해 노력해 보아요",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0,0,10,0),
