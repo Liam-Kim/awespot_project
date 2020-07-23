@@ -44,13 +44,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-
     super.initState();
     getUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    getUser();
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -208,6 +208,7 @@ class _HomePageState extends State<HomePage> {
                     SystemNavigator.pop();
                   },
                 ),
+                /*
                 ListTile(
                   title: Text('Item 2'),
                   onTap: () {
@@ -217,6 +218,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pop(context);
                   },
                 ),
+                * */
               ],
             )
         ),
