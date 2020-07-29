@@ -52,23 +52,17 @@ class _GoalPageState extends State<GoalPage> {
               final item = items[index];
               return InkWell(
                 child: ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(item['nickname'],
-                        style: TextStyle(
-                          fontSize: screenWidth*0.055,
-                          fontWeight: FontWeight.bold,
-                          //color: Colors.black,
-                        ),
-                      ),
-                      Container(width: screenWidth*0.03,),
-                      Text(item['comment'],
-                        style: TextStyle(
-                          fontSize: screenWidth*0.04,
-                        ),
-                      ),
-                    ],
+                  title: Text(item['nickname'],
+                    style: TextStyle(
+                      fontSize: screenWidth*0.055,
+                      fontWeight: FontWeight.bold,
+                      //color: Colors.black,
+                    ),
+                  ),
+                  subtitle: Text(item['comment'],
+                    style: TextStyle(
+                      fontSize: screenWidth*0.035,
+                    ),
                   ),
                 ),
               );
@@ -101,6 +95,8 @@ class _GoalPageState extends State<GoalPage> {
 
   }
 
+
+  //좋아요를 눌렀는지 아닌지 알기 위
   Future<String> getLike () async {
     user = await FirebaseAuth.instance.currentUser();
     DocumentReference documentReference =  Firestore.instance.collection("loginInfo").document(user.email)
@@ -145,17 +141,26 @@ class _GoalPageState extends State<GoalPage> {
   }
 
   Widget _chatbuildTextComposer(double width, double height) {
+
     return  Container(
       width: width,
       height: height,
       child:  TextField(
         controller: _chatController,
-        onSubmitted: _chathandleSubmitted,
         decoration:  InputDecoration(
-            filled: true,
-            fillColor: HexColor("#fff7ef"),
-            border: InputBorder.none,
-            hintText: "채팅 입력..."),
+          contentPadding: EdgeInsets.fromLTRB(10,0,0,0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+                color: HexColor("#53965c")),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+                color: HexColor("#53965c")),
+          ),
+          hintText: "응댓 입력..."
+        ),
       ),
     );
   }
@@ -262,6 +267,7 @@ class _GoalPageState extends State<GoalPage> {
   void initState() {
     super.initState();
     getUser();
+    getLike();
   }
 
 
@@ -310,301 +316,314 @@ class _GoalPageState extends State<GoalPage> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        child: ListView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(height: screenWidth*0.06,),
-                Text(
-                  "친구들의 목표를 보며 응원의 댓글을 남기면\n 더 잘할 수 있어요",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenWidth*0.035,
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(height: screenWidth*0.06,),
+              Text(
+                "친구들의 목표를 보며 응원의 댓글을 남기면\n 더 잘할 수 있어요",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth*0.035,
                 ),
-                Container(height: screenWidth*0.04,),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                        width: screenWidth*0.35,
-                        child: Divider(thickness: 1),
+              ),
+              Container(height: screenWidth*0.04,),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                      width: screenWidth*0.35,
+                      child: Divider(thickness: 1),
+                    ),
+                    Container(
+                      child: Icon(
+                        Icons.star,
+                        color: Color(0xfffbb359),
+                        size: screenWidth*0.04,
                       ),
-                      Container(
-                        child: Icon(
-                          Icons.star,
-                          color: Color(0xfffbb359),
-                          size: screenWidth*0.04,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      width: screenWidth*0.35,
+                      child: Divider(thickness: 1),
+                    ),
+                  ],
+                ),
+              ),
+              Container(height: screenWidth*0.02,),
+              Container(
+                height: screenWidth * 0.4,
+                width: screenWidth * 0.4,
+                child:  Image.asset(
+                  'assets/tree.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    nickname,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: screenWidth*0.05,
+                      color: HexColor("#53975c"),
+                    ),
+                  ),
+                  Text(
+                      " 님의 꿈은"
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    dream,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: screenWidth*0.05,
+                      color: HexColor("#fbb359"),
+                    ),
+                  ),
+                  Text(
+                      " 입니다"
+                  )
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(screenWidth*0.05, 0,0,0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "좋아요",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        favoriteNum == 1 ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                        size: screenHeight*0.033,
+                      ),
+                      onPressed: (){
+                        getLike();
+                        if(favoriteNum == 1) {
+                          setState(() {
+                            likeSubUpdate(); //FavoriteNUm 을 0으로
+                            totalLikeUpdate (-1);
+                            pointUpdate(-100);
+                          });
+                        }
+                        else{
+                          setState(() {
+                            likeAddUpdate(); ////FavoriteNUm 을 1으로
+                            totalLikeUpdate (1);
+                            pointUpdate(100);
+                          });
+                        }
+                      },
+                    ),
+                    Text(
+                      "$totalFavoriteNum",
+                      style: TextStyle(
+                        fontSize: screenWidth*0.033,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(screenWidth*0.033),
+                width: screenWidth*0.9,
+                height: screenHeight*0.35,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(5.0) //                 <--- border radius here
+                    ),
+                    border: Border.all(color: HexColor("#96fab259"))
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "오늘의 목표",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth*0.03,
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: screenWidth*0.35,
-                        child: Divider(thickness: 1),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(height: screenWidth*0.02,),
-                Container(
-                  height: screenWidth * 0.4,
-                  width: screenWidth * 0.4,
-                  child:  Image.asset(
-                    'assets/tree.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      nickname,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth*0.05,
-                        color: HexColor("#53975c"),
-                      ),
-                    ),
-                    Text(
-                        " 님의 꿈은"
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      dream,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth*0.05,
-                        color: HexColor("#fbb359"),
-                      ),
-                    ),
-                    Text(
-                        " 입니다"
-                    )
-                  ],
-                ),
-                Container(height: screenWidth*0.05,),
-                Container(
-                  padding: EdgeInsets.all(screenWidth*0.033),
-                  width: screenWidth*0.9,
-                  height: screenWidth*0.6,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(5.0) //                 <--- border radius here
-                      ),
-                      border: Border.all(color: HexColor("#96fab259"))
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "오늘의 목표",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth*0.03,
-                            ),
+                        Theme(
+                          data: ThemeData(unselectedWidgetColor: HexColor("#fab259")),
+                          child: Checkbox(
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            checkColor: Colors.white,
+                            activeColor: HexColor("#fab259"),
+                            value: _todayBool,
+                            onChanged: null,
                           ),
-                          Theme(
-                            data: ThemeData(unselectedWidgetColor: HexColor("#fab259")),
-                            child: Checkbox(
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: screenWidth*0.8,
+                            height: screenWidth*0.07,
+                            decoration: BoxDecoration(
+                              color: HexColor("#fff7ef"),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 0,0,0),
+                                ),
+                                Text(
+                                  today,
+                                  style: TextStyle(
+                                      fontSize: screenWidth*0.033,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
+                      ],
+                    ),
+                    Container(height: screenWidth*0.03,),
+                    Row(
+                      children: [
+                        Text(
+                          "이번 달의 목표",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth*0.03,
+                          ),
+                        ),
+                        Theme(
+                          data: ThemeData(unselectedWidgetColor: HexColor("#fab259")),
+                          child: Checkbox(
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               checkColor: Colors.white,
                               activeColor: HexColor("#fab259"),
-                              value: _todayBool,
-                              onChanged: null,
+                              value: _weekBool,
+                              onChanged: null
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: screenWidth*0.8,
+                            height: screenWidth*0.07,
+                            decoration: BoxDecoration(
+                              color: HexColor("#fff7ef"),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                              width: screenWidth*0.8,
-                              height: screenWidth*0.07,
-                              decoration: BoxDecoration(
-                                color: HexColor("#fff7ef"),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0,0,0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 0,0,0),
+                                ),
+                                Text(
+                                  week,
+                                  style: TextStyle(
+                                      fontSize: screenWidth*0.033,
+                                      fontWeight: FontWeight.bold
                                   ),
-                                  Text(
-                                    today,
-                                    style: TextStyle(
-                                        fontSize: screenWidth*0.033,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ],
-                              )
+                                ),
+                              ],
+                            )
+                        ),
+                      ],
+                    ),
+                    Container(height: screenWidth*0.03,),
+                    Row(
+                      children: [
+                        Text(
+                          "올해의 목표",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth*0.03,
                           ),
-                        ],
-                      ),
-                      Container(height: screenWidth*0.03,),
-                      Row(
-                        children: [
-                          Text(
-                            "이번 달의 목표",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth*0.03,
+                        ),
+                        Theme(
+                          data: ThemeData(unselectedWidgetColor: HexColor("#fab259")),
+                          child: Checkbox(
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            checkColor: Colors.white,
+                            activeColor: HexColor("#fab259"),
+                            value: _yearBool,
+                            onChanged: null,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: screenWidth*0.8,
+                            height: screenWidth*0.07,
+                            decoration: BoxDecoration(
+                              color: HexColor("#fff7ef"),
                             ),
-                          ),
-                          Theme(
-                            data: ThemeData(unselectedWidgetColor: HexColor("#fab259")),
-                            child: Checkbox(
-                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                checkColor: Colors.white,
-                                activeColor: HexColor("#fab259"),
-                                value: _weekBool,
-                                onChanged: null
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                              width: screenWidth*0.8,
-                              height: screenWidth*0.07,
-                              decoration: BoxDecoration(
-                                color: HexColor("#fff7ef"),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0,0,0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 0,0,0),
+                                ),
+                                Text(
+                                  year,
+                                  style: TextStyle(
+                                      fontSize: screenWidth*0.033,
+                                      fontWeight: FontWeight.bold
                                   ),
-                                  Text(
-                                    week,
-                                    style: TextStyle(
-                                        fontSize: screenWidth*0.033,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ],
-                              )
-                          ),
-                        ],
-                      ),
-                      Container(height: screenWidth*0.03,),
-                      Row(
-                        children: [
-                          Text(
-                            "올해의 목표",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth*0.03,
-                            ),
-                          ),
-                          Theme(
-                            data: ThemeData(unselectedWidgetColor: HexColor("#fab259")),
-                            child: Checkbox(
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              checkColor: Colors.white,
-                              activeColor: HexColor("#fab259"),
-                              value: _yearBool,
-                              onChanged: null,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                              width: screenWidth*0.8,
-                              height: screenWidth*0.07,
-                              decoration: BoxDecoration(
-                                color: HexColor("#fff7ef"),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0,0,0),
-                                  ),
-                                  Text(
-                                    year,
-                                    style: TextStyle(
-                                        fontSize: screenWidth*0.033,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ],
-                              )
-                          ),
-                        ],
-                      ),
+                                ),
+                              ],
+                            )
+                        ),
+                      ],
+                    ),
 
-                    ],
-                  ),
+                  ],
                 ),
-                Container(
-                  width: screenWidth*0.9,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _chatbuildTextComposer(screenWidth*0.7,screenWidth*0.07),
-                      Row(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  favoriteNum == 1 ? Icons.favorite : Icons.favorite_border,
-                                  color: Colors.red,
-                                  size: screenHeight*0.033,
-                                ),
-                                onPressed: (){
-                                  getLike();
-                                  if(favoriteNum == 1) {
-                                    setState(() {
-                                      likeSubUpdate();
-                                      totalLikeUpdate (-1);
-                                      pointUpdate(-100);
-                                    });
-                                  }
-                                  else{
-                                    setState(() {
-                                      likeAddUpdate();
-                                      totalLikeUpdate (1);
-                                      pointUpdate(100);
-                                    });
-                                  }
-                                },
-                              ),
-                              Text(
-                                "$totalFavoriteNum",
-                                style: TextStyle(
-                                  fontSize: screenWidth*0.033,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
+              ),
+              Container(
+                width: screenWidth*0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: screenHeight*0.07,),
+                    _chatbuildTextComposer(screenWidth*0.8,screenHeight*0.04),
+                    IconButton(
+                      icon: Icon(
+                        Icons.send,
+                        color: HexColor("#53965c"),
                       ),
-                    ],
-                  ),
+                      onPressed: (){
+                        if(_chatController.text.isNotEmpty)
+                          _chathandleSubmitted(_chatController.text);
+                      },
+                    )
+                  ],
                 ),
-                // _chatList (),
-              ],
-            ),
-            _chatList()
-          ],
+              ),
+              // _chatList (),
+            ],
+          ),
         ),
       ),
     );

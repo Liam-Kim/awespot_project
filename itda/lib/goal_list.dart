@@ -8,7 +8,8 @@ import 'help.dart';
 
 var Pass;
 class Goal_ListPage extends StatefulWidget{
-
+  String schoolName;
+  Goal_ListPage({Key key,@required this.schoolName}) : super(key: key);
   @override
   _Goal_ListPageState createState() => _Goal_ListPageState();
 }
@@ -19,7 +20,7 @@ class _Goal_ListPageState extends State<Goal_ListPage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('loginInfo').orderBy('email', descending: true).snapshots(),
+      stream: Firestore.instance.collection(widget.schoolName).orderBy('email', descending: true).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 

@@ -373,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                   height: 50.0,
                   child: RaisedButton(
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Goal_ListPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Goal_ListPage(schoolName: school,)));
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
