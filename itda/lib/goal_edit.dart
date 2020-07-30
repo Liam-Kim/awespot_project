@@ -286,16 +286,16 @@ class _GoalEditPageState extends State<GoalEditPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(height: screenWidth*0.06,),
+              Container(height: screenHeight*0.025,),
               Text(
                 "친구들의 목표를 보며 응원의 댓글을 남기면\n 더 잘할 수 있어요",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                   fontSize: screenWidth*0.035,
                 ),
               ),
-              Container(height: screenWidth*0.04,),
+              Container(height: screenHeight*0.02,),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -320,7 +320,7 @@ class _GoalEditPageState extends State<GoalEditPage> {
                   ],
                 ),
               ),
-              Container(height: screenWidth*0.02,),
+              Container(height: screenHeight*0.01,),
               Container(
                 height: screenWidth * 0.4,
                 width: screenWidth * 0.4,
@@ -345,7 +345,7 @@ class _GoalEditPageState extends State<GoalEditPage> {
                   )
                 ],
               ),
-              Container(height: screenWidth*0.02,),
+              Container(height: screenHeight*0.01),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -362,11 +362,11 @@ class _GoalEditPageState extends State<GoalEditPage> {
                   )
                 ],
               ),
-              Container(height: screenWidth*0.05,),
+              Container(height: screenHeight*0.01),
               Container(
                 padding: EdgeInsets.all(screenWidth*0.033),
                 width: screenWidth*0.9,
-                height: screenWidth*0.6,
+                height: screenHeight*0.35,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                         Radius.circular(5.0) //                 <--- border radius here
@@ -398,7 +398,7 @@ class _GoalEditPageState extends State<GoalEditPage> {
                       ],
                     ),
                     _todaybuildTextComposer(screenWidth*0.8,screenWidth*0.07),
-                    Container(height: screenWidth*0.03,),
+                    Container(height: screenHeight*0.02,),
                     Row(
                       children: [
                         Text(
@@ -421,7 +421,7 @@ class _GoalEditPageState extends State<GoalEditPage> {
                       ],
                     ),
                     _weekbuildTextComposer(screenWidth*0.8,screenWidth*0.07),
-                    Container(height: screenWidth*0.03,),
+                    Container(height: screenHeight*0.02,),
                     Row(
                       children: [
                         Text(

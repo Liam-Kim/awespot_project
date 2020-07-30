@@ -42,10 +42,11 @@ class _GoalPageState extends State<GoalPage> {
     var screenHeight = queryData.size.height;
     var screenWidth = queryData.size.width;
     return StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection('loginInfo').document(widget.email).collection("chatInfo").snapshots(),
+        stream: Firestore.instance.collection('loginInfo').document(widget.email).collection("chatInfo").orderBy("index").snapshots(),
         builder: (context, snapshot) {
           final items = snapshot.data.documents;
           return ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: items.length,
             itemBuilder: (context, index) {
@@ -179,8 +180,10 @@ class _GoalPageState extends State<GoalPage> {
     });
 
     DocumentReference documentReference2 = await Firestore.instance.collection("loginInfo").document(widget.email);
+    index += 1;
+
     documentReference2.updateData(<String, dynamic>{
-      'index' : index+1
+      'index' : index
     });
 
     await documentReference2.get().then<dynamic>(( DocumentSnapshot snapshot) async {
@@ -197,6 +200,7 @@ class _GoalPageState extends State<GoalPage> {
     documentReference.setData(<String, dynamic>{
       'nickname' : _nickname,
       'comment' : comment,
+      'index' : index,
     });
   }
 
@@ -284,12 +288,10 @@ class _GoalPageState extends State<GoalPage> {
           centerTitle: true,
           actions: [
             InkWell(
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: HexColor("#fbb359"),
-                  //size: 12,
-                ),
+              child: Container(
+                width: screenWidth*0.1,
+                height: screenHeight*0.1,
+                child: Image.asset("assets/modify.png"),
               ),
               onTap: (){
                 _editChecker();
@@ -315,12 +317,11 @@ class _GoalPageState extends State<GoalPage> {
           )
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        child: SingleChildScrollView(
+      body:  SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(height: screenWidth*0.06,),
+              Container(height: screenHeight*0.025,),
               Text(
                 "친구들의 목표를 보며 응원의 댓글을 남기면\n 더 잘할 수 있어요",
                 textAlign: TextAlign.center,
@@ -329,7 +330,7 @@ class _GoalPageState extends State<GoalPage> {
                   fontSize: screenWidth*0.035,
                 ),
               ),
-              Container(height: screenWidth*0.04,),
+              Container(height: screenHeight*0.02,),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -354,7 +355,7 @@ class _GoalPageState extends State<GoalPage> {
                   ],
                 ),
               ),
-              Container(height: screenWidth*0.02,),
+              Container(height: screenHeight*0.01,),
               Container(
                 height: screenWidth * 0.4,
                 width: screenWidth * 0.4,
@@ -442,7 +443,7 @@ class _GoalPageState extends State<GoalPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(screenWidth*0.033),
+                padding: EdgeInsets.fromLTRB(screenWidth*0.033, screenHeight*0.01, screenWidth*0.033, screenHeight*0.01),
                 width: screenWidth*0.9,
                 height: screenHeight*0.35,
                 decoration: BoxDecoration(
@@ -501,7 +502,7 @@ class _GoalPageState extends State<GoalPage> {
                         ),
                       ],
                     ),
-                    Container(height: screenWidth*0.03,),
+                    Container(height: screenHeight*0.02),
                     Row(
                       children: [
                         Text(
@@ -527,7 +528,7 @@ class _GoalPageState extends State<GoalPage> {
                       children: [
                         Container(
                             width: screenWidth*0.8,
-                            height: screenWidth*0.07,
+                            height: screenHeight*0.04,
                             decoration: BoxDecoration(
                               color: HexColor("#fff7ef"),
                             ),
@@ -549,7 +550,7 @@ class _GoalPageState extends State<GoalPage> {
                         ),
                       ],
                     ),
-                    Container(height: screenWidth*0.03,),
+                    Container(height: screenHeight*0.02),
                     Row(
                       children: [
                         Text(
@@ -575,7 +576,7 @@ class _GoalPageState extends State<GoalPage> {
                       children: [
                         Container(
                             width: screenWidth*0.8,
-                            height: screenWidth*0.07,
+                            height: screenHeight*0.04,
                             decoration: BoxDecoration(
                               color: HexColor("#fff7ef"),
                             ),
@@ -614,19 +615,20 @@ class _GoalPageState extends State<GoalPage> {
                         color: HexColor("#53965c"),
                       ),
                       onPressed: (){
-                        if(_chatController.text.isNotEmpty)
+                        if(_chatController.text.isNotEmpty) {
+                          pointUpdate(100);
                           _chathandleSubmitted(_chatController.text);
+                        }
                       },
                     )
                   ],
                 ),
               ),
-              // _chatList (),
+              _chatList(),
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

@@ -93,6 +93,7 @@ class _SignupPageState extends State<SignupPage> {
       'yearcheck' : false,
       'total' : 0,
       'index' : 0,
+      'admin' : false,
 
     });
 
