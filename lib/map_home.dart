@@ -5,9 +5,6 @@ import 'package:provider/provider.dart';
 import 'user_repository.dart';
 
 import 'package:location/location.dart' as lo;
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import "package:latlong/latlong.dart";
 
 class MapHome extends StatefulWidget {
@@ -22,7 +19,7 @@ class _MapHomeState extends State<MapHome> {
   UserLocation _currentLocation;
   var location = lo.Location();
   //GoogleMapController mapController;
-  String _mapStyle;
+
   
 
   bool isGetStarLocation = false;
@@ -287,9 +284,6 @@ class _MapHomeState extends State<MapHome> {
 
   @override
   void initState() {
-    rootBundle.loadString('assets/blackStyle.txt').then((string) {
-      _mapStyle = string;
-    });
     getLocation();
     getStarLocation();
 
@@ -356,21 +350,6 @@ class _MapHomeState extends State<MapHome> {
                     ],
                   )),
               Expanded(child:
-                // child: GoogleMap(
-                //   myLocationButtonEnabled: false,
-                //   rotateGesturesEnabled: false,
-                //   mapType: MapType.normal,
-                //   initialCameraPosition: CameraPosition(
-                //       target: LatLng(_currentLocation.latitude,
-                //           _currentLocation.longitude),
-                //       zoom: 2.0),
-                //   onMapCreated: (GoogleMapController controller) {
-                //     mapController = controller;
-                //     mapController.setMapStyle(_mapStyle);
-                //     // _controller.complete(controller);
-                //   },
-                // ),
-
                 FlutterMap(
                   options: new MapOptions(
                     minZoom: 1.5,
