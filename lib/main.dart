@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:awespot_project/home.dart';
+import 'map_home.dart';
 import 'user_repository.dart';
 import 'login.dart';
 import 'sign_in.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MainPage(),
+      home:HomePage()
+      //MainPage(),
     );
   }
 }
@@ -38,7 +40,7 @@ class MainPage extends StatelessWidget {
             case Status.Authenticating:
               return LoginPage();
             case Status.Authenticated:
-              return HomePage(user: user.user,);
+              return HomePage();
             case Status.Unjoined:
             return SignInPage(user:user);
           }

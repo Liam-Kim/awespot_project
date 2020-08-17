@@ -148,16 +148,6 @@ class _MapSearchPageState extends State<MapSearchPage> {
                   ],
                 ),
               ),
-              new ButtonBar(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  new FlatButton(
-                      child: const Text('업로드 하기'),
-                      color: Colors.black,
-                      textColor: Colors.white,
-                      onPressed: () {}),
-                ],
-              ),
             ],
           )
         : Center(

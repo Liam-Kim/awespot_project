@@ -10,22 +10,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  final FirebaseUser user;
-
-  HomePage({
-    Key key,
-    @required this.user,
-  }) : super(key: key);
-
   @override
-  _HomePageState createState() => _HomePageState(user: user);
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final FirebaseUser user;
-
-  _HomePageState({Key key, @required this.user});
-
   int _currentIndex = 0;
 
   DateTime backbuttonpressedTime;
@@ -38,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
     tabs = [
       MapHome(),
-      MapSearchPage(),
       UserInfoPage(),
     ];
     super.initState();
@@ -51,7 +39,6 @@ class _HomePageState extends State<HomePage> {
       statusBarIconBrightness: Brightness.light,
     ));
     return MaterialApp(
-        //update_detail.dart의 DatePicker에 필요해서 적용
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -62,48 +49,56 @@ class _HomePageState extends State<HomePage> {
         ],
         debugShowCheckedModeBanner: false,
         home: WillPopScope(
-            child: Scaffold(
-                body: Stack(children: <Widget>[
-              tabs[_currentIndex],
-              Positioned(
-                  right: 0,
-                  left: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      child: BottomNavigationBar(
-                        currentIndex: _currentIndex,
-                        showSelectedLabels: false,
-                        showUnselectedLabels: false,
-                        backgroundColor: Colors.black,
-                        selectedItemColor: Colors.white,
-                        unselectedItemColor: Colors.white,
-                        type: BottomNavigationBarType.fixed,
-                        items: [
-                          BottomNavigationBarItem(
-                            icon: Icon(Icons.home),
-                            title: Text(""),
-                          ),
-                          BottomNavigationBarItem(
-                            icon: Icon(Icons.add),
-                            title: Text(""),
-                          ),
-                          BottomNavigationBarItem(
-                            icon: Icon(Icons.person),
-                            title: Text(""),
-                          ),
-                        ],
-                        onTap: (index) {
-                          setState(() {
-                            _currentIndex = index;
-                          });
-                        },
-                      ),
-                    ),
-                  ))
-            ])),
+            child: new Scaffold(
+              body: tabs[_currentIndex],
+              backgroundColor: Colors.black26,
+              floatingActionButton: Container(
+                width: 80,
+                height: 80,
+                child: new FloatingActionButton(
+                  elevation: 50.0,
+                  backgroundColor: HexColor("#ECAE00"),
+                  tooltip: 'Increment',
+                  child: new Icon(Icons.add, size: 40),
+                  onPressed: () {
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => UploadPage()));
+                  },
+                ),
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                elevation: 40.0,
+                currentIndex: _currentIndex,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                backgroundColor: HexColor("#212121"),
+                selectedItemColor: Colors.white,
+                unselectedItemColor: Colors.white,
+                type: BottomNavigationBarType.fixed,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Padding(
+                        padding: EdgeInsets.only(right: 30),
+                        child: Icon(Icons.search)),
+                    title: Text(""),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Padding(
+                        padding: EdgeInsets.only(left: 30),
+                        child: Icon(Icons.person)),
+                    title: Text(""),
+                  ),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+            ),
             onWillPop: onWillPop));
   }
 
@@ -117,4 +112,16 @@ class _HomePageState extends State<HomePage> {
     }
     return true;
   }
+}
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
