@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">95383824790-7bgrfpgknj2ga22eg7dt5m58u52vp4pe.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://awespot-9f607.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">95383824790</string>
+    <string name="google_api_key" translatable="false">AIzaSyAYSB-EKKavtx4Znnpv8vvK6ZKBckUXxO8</string>
+    <string name="google_app_id" translatable="false">1:95383824790:android:9627b3b6082c43bcc915b7</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAYSB-EKKavtx4Znnpv8vvK6ZKBckUXxO8</string>
+    <string name="google_storage_bucket" translatable="false">awespot-9f607.appspot.com</string>
+    <string name="project_id" translatable="false">awespot-9f607</string>
+</resources>

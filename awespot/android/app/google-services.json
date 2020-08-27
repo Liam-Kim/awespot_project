@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "95383824790",
+    "firebase_url": "https://awespot-9f607.firebaseio.com",
+    "project_id": "awespot-9f607",
+    "storage_bucket": "awespot-9f607.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95383824790:android:9627b3b6082c43bcc915b7",
+        "android_client_info": {
+          "package_name": "com.example.awespot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95383824790-7bgrfpgknj2ga22eg7dt5m58u52vp4pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYSB-EKKavtx4Znnpv8vvK6ZKBckUXxO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95383824790-7bgrfpgknj2ga22eg7dt5m58u52vp4pe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

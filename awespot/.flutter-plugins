@@ -1,0 +1,13 @@
+# This is a generated file; do not edit or check into version control.
+firebase_core=/Users/user/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.5/
+firebase_core_web=/Users/user/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/
+firebase_storage=/Users/user/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.6/
+geolocator=/Users/user/.pub-cache/hosted/pub.dartlang.org/geolocator-5.3.2+2/
+google_api_availability=/Users/user/.pub-cache/hosted/pub.dartlang.org/google_api_availability-2.0.4/
+location=/Users/user/.pub-cache/hosted/pub.dartlang.org/location-3.0.2/
+location_permissions=/Users/user/.pub-cache/hosted/pub.dartlang.org/location_permissions-3.0.0+1/
+location_web=/Users/user/.pub-cache/hosted/pub.dartlang.org/location_web-1.0.0/
+multi_image_picker=/Users/user/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.10/
+path_provider=/Users/user/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.11/
+path_provider_linux=/Users/user/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2/
+path_provider_macos=/Users/user/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3/

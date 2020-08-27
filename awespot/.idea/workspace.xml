@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86a1c58a-47a1-4121-9044-81d0140b31b0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../lastItdaver1" beforeDir="false" afterPath="$PROJECT_DIR$/../lastItdaver1" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1fgn7c5ZOLIUDMXaENfgx1MT875" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android/app" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86a1c58a-47a1-4121-9044-81d0140b31b0" name="Default Changelist" comment="" />
+      <created>1596648436446</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596648436446</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="245" y="189" key="#PSD" timestamp="1596653558607">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="245" y="189" key="#PSD/0.0.1440.900@0.0.1440.900" timestamp="1596653558607" />
+    <state width="1398" height="243" key="GridCell.Tab.0.bottom" timestamp="1598511437019">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1598511437019" />
+    <state width="1398" height="243" key="GridCell.Tab.0.bottom/0.23.1440.830@0.23.1440.830" timestamp="1597159699344" />
+    <state width="1398" height="243" key="GridCell.Tab.0.bottom/1440.0.1112.770/0.0.1440.900@0.0.1440.900" timestamp="1596649043530" />
+    <state width="1398" height="243" key="GridCell.Tab.0.center" timestamp="1598511437017">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1598511437017" />
+    <state width="1398" height="243" key="GridCell.Tab.0.center/0.23.1440.830@0.23.1440.830" timestamp="1597159699343" />
+    <state width="1398" height="243" key="GridCell.Tab.0.center/1440.0.1112.770/0.0.1440.900@0.0.1440.900" timestamp="1596649043528" />
+    <state width="1398" height="243" key="GridCell.Tab.0.left" timestamp="1598511437016">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1598511437016" />
+    <state width="1398" height="243" key="GridCell.Tab.0.left/0.23.1440.830@0.23.1440.830" timestamp="1597159699342" />
+    <state width="1398" height="243" key="GridCell.Tab.0.left/1440.0.1112.770/0.0.1440.900@0.0.1440.900" timestamp="1596649043527" />
+    <state width="1398" height="243" key="GridCell.Tab.0.right" timestamp="1598511437018">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1598511437018" />
+    <state width="1398" height="243" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1597159699343" />
+    <state width="1398" height="243" key="GridCell.Tab.0.right/1440.0.1112.770/0.0.1440.900@0.0.1440.900" timestamp="1596649043529" />
+    <state x="221" y="89" key="SettingsEditor" timestamp="1596795644269">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1596795644269" />
+    <state x="100" y="83" width="1240" height="760" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1598359004301">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="100" y="83" width="1240" height="760" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1440.900@0.0.1440.900" timestamp="1598338816656" />
+    <state x="100" y="83" width="1240" height="760" key="com.android.tools.idea.avdmanager.AvdListDialog/0.23.1440.830@0.23.1440.830" timestamp="1598359004301" />
+    <state x="100" y="83" width="1240" height="760" key="com.android.tools.idea.avdmanager.AvdListDialog/1440.0.1112.770/0.0.1440.900@0.0.1440.900" timestamp="1596648998841" />
+    <state x="100" y="100" width="1240" height="700" key="com.android.tools.idea.avdmanager.AvdListDialog/1440.23.1112.747/0.23.1440.830@0.23.1440.830" timestamp="1596648477860" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1596747106201">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1596747106201" />
+  </component>
+</project>
