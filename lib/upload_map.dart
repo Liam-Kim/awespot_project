@@ -81,14 +81,13 @@ class _MapSearchPageState extends State<MapSearchPage> {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                    final result = Navigator.of(context).push(
-                                        MaterialPageRoute(
+                                    final result = Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                             builder: (context) => WillPopScope(
                                                 onWillPop: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: SearchAddress(
-                                                    addressKey))));
+                                                child: SearchAddress())));
                                     result.then((result) {
                                       setState(() {
                                         _searchPlace = result.name;

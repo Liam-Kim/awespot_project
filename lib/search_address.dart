@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:google_place/google_place.dart';
 
 class SearchAddress extends StatefulWidget {
-  final int airPortPlaceFlag;
-  SearchAddress(this.airPortPlaceFlag);
   @override
   _SearchAddressState createState() =>
-      _SearchAddressState(airPortPlaceFlag: airPortPlaceFlag);
+      _SearchAddressState();
 }
 
 class _SearchAddressState extends State<SearchAddress> {
-  _SearchAddressState({Key key, @required this.airPortPlaceFlag});
-  final int airPortPlaceFlag;
+
   GooglePlace googlePlace;
   List<AutocompletePrediction> predictions = [];
   DetailsResult detailsResult;
