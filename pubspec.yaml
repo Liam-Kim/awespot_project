@@ -21,17 +21,26 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  #map
   flutter_map:
   flutter_map_marker_cluster:
   location:
   google_place:
 
+  #log in
   provider:
   firebase_auth:
   google_sign_in:
+  
+  #upload
+  multi_image_picker:
+  carousel_pro:
 
+  #app
   shared_preferences:
+  flutter_switch:
 
+  #data base
   cloud_firestore:
   firebase_storage:
 

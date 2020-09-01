@@ -26,7 +26,7 @@ class _MapHomeState extends State<MapHome> {
   int pointIndex = 0;
   int pointIndexRed = 0;
   int pointIndexYellow = 0;
-  int pointIndexGreen = 0;
+  int pointIndexGreen = 0; 
   List points;
   List pointsRed;
   List pointsYellow;
@@ -308,7 +308,7 @@ class _MapHomeState extends State<MapHome> {
                 layers: [
                   new TileLayerOptions(
                     urlTemplate:
-                        "https://api.mapbox.com/styles/v1/liam29/ckdyrk8ut03sq1aquldyi7nz8/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibGlhbTI5IiwiYSI6ImNrNTk4OXd2cDBpbjczb29hN2F6dzg4NmsifQ.RduJfm1zIHzWEfYusIgaGQ",
+                        "https://api.mapbox.com/styles/v1/liam29/ckeiay0a64ma319o3ey7tlczm/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibGlhbTI5IiwiYSI6ImNrNTk4OXd2cDBpbjczb29hN2F6dzg4NmsifQ.RduJfm1zIHzWEfYusIgaGQ",
                     additionalOptions: {
                       'accessToken':
                           'pk.eyJ1IjoibGlhbTI5IiwiYSI6ImNrNTk4OXd2cDBpbjczb29hN2F6dzg4NmsifQ.RduJfm1zIHzWEfYusIgaGQ',

@@ -1,3 +1,5 @@
+import 'package:awespot_project/feed.dart';
+import 'package:awespot_project/spot.dart';
 import 'package:awespot_project/user_repository.dart';
 
 import 'upload_map.dart';
@@ -5,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'map_home.dart';
 import 'user_info.dart';
+import 'upload.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:awespot_project/widget/change_hexcolor.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,16 +30,19 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
 
     tabs = [
+      SpotPage(),
       MapHome(),
+      UploadPage(),
+      FeedPage(),
       UserInfoPage(),
     ];
     super.initState();
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
     return MaterialApp(
@@ -44,49 +51,41 @@ class _HomePageState extends State<HomePage> {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: [
-          const Locale('en', 'US'),
-          const Locale('ko', 'KO'),
+        //  const Locale('en', 'US'),
+          const Locale('ko', 'KR'),
         ],
         debugShowCheckedModeBanner: false,
         home: WillPopScope(
             child: new Scaffold(
               body: tabs[_currentIndex],
               backgroundColor: Colors.black26,
-              floatingActionButton: Container(
-                width: 80,
-                height: 80,
-                child: new FloatingActionButton(
-                  elevation: 50.0,
-                  backgroundColor: HexColor("#ECAE00"),
-                  tooltip: 'Increment',
-                  child: new Icon(Icons.add, size: 40),
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => UploadPage()));
-                  },
-                ),
-              ),
               bottomNavigationBar: BottomNavigationBar(
                 elevation: 40.0,
                 currentIndex: _currentIndex,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 backgroundColor: HexColor("#212121"),
-                selectedItemColor: Colors.white,
+                selectedItemColor: HexColor("#ECAE00"),
                 unselectedItemColor: Colors.white,
                 type: BottomNavigationBarType.fixed,
                 items: [
                   BottomNavigationBarItem(
-                    icon: Padding(
-                        padding: EdgeInsets.only(right: 30),
-                        child: Icon(Icons.search)),
+                    icon: Icon(Icons.star_border),
                     title: Text(""),
                   ),
                   BottomNavigationBarItem(
-                    icon: Padding(
-                        padding: EdgeInsets.only(left: 30),
-                        child: Icon(Icons.person)),
+                    icon: Icon(Icons.public),
+                    title: Text(""),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.add_box),
+                    title: Text(""),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.message),
+                    title: Text(""),
+                  ),BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
                     title: Text(""),
                   ),
                 ],
@@ -96,8 +95,6 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
             ),
             onWillPop: onWillPop));
   }
@@ -114,14 +111,3 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-}
