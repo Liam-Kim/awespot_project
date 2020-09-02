@@ -182,7 +182,8 @@ class _MapLocationState extends State<MapLocation> {
         .search
         .getNearBySearch(Location(lat: lat, lng: lng), 1);
     if (result != null && result.results != null && mounted) {
-      setState(() {});
+      setState(() {
+      });
     }
   }
 }

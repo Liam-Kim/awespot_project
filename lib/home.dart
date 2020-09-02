@@ -37,10 +37,11 @@ class _HomePageState extends State<HomePage> {
       UserInfoPage(),
     ];
     super.initState();
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: [
-        //  const Locale('en', 'US'),
+          //  const Locale('en', 'US'),
           const Locale('ko', 'KR'),
         ],
         debugShowCheckedModeBanner: false,
@@ -84,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                   BottomNavigationBarItem(
                     icon: Icon(Icons.message),
                     title: Text(""),
-                  ),BottomNavigationBarItem(
+                  ),
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.person),
                     title: Text(""),
                   ),
@@ -110,4 +112,3 @@ class _HomePageState extends State<HomePage> {
     return true;
   }
 }
-
