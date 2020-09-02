@@ -17,10 +17,11 @@ class _MapLocationState extends State<MapLocation> {
   bool isGetLocaton = false;
   UserLocation _currentLocation;
   var location = lo.Location();
+  MapController _mapctl = MapController();
 
   bool isGetStarLocation = false;
 
-  String addressName = "Null";
+  String addressName = "";
 
   Future<UserLocation> getLocation() async {
     try {
@@ -41,6 +42,11 @@ class _MapLocationState extends State<MapLocation> {
   void updateInformation() {
     setState(() {
       addressName = _updatedInfo.name;
+      print(_updatedInfo.geometry.location.lat);
+      _mapctl.move(
+          LatLng(_updatedInfo.geometry.location.lat,
+              _updatedInfo.geometry.location.lng),
+          10.0);
     });
   }
 
@@ -69,6 +75,7 @@ class _MapLocationState extends State<MapLocation> {
                 child: Stack(
               children: [
                 FlutterMap(
+                  mapController: _mapctl,
                   options: new MapOptions(
                     minZoom: 1.5,
                     maxZoom: 12.0,

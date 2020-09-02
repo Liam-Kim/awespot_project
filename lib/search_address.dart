@@ -1,4 +1,3 @@
-
 import 'package:awespot_project/widget/change_hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_place/google_place.dart';
@@ -121,10 +120,9 @@ class _SearchAddressState extends State<SearchAddress> {
   }
 
   void getDetils(String placeId) async {
-    var result = await this.googlePlace.details.get(placeId);
+    var result = await this.googlePlace.details.get(placeId, language: 'ko');
     if (result != null && result.result != null && mounted) {
       setState(() {
-        
         detailsResult = result.result;
         print(detailsResult.addressComponents[2].shortName);
         print(detailsResult.addressComponents[1].longName);
