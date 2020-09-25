@@ -1,12 +1,12 @@
 import 'package:awespot_project/feed.dart';
 import 'package:awespot_project/spot.dart';
-import 'package:awespot_project/user_repository.dart';
+import 'package:awespot_project/provider/login_state.dart';
 
 import 'upload_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'map_home.dart';
-import 'user_info.dart';
+import 'profile.dart';
 import 'upload.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       MapHome(),
       UploadPage(),
       FeedPage(),
-      UserInfoPage(),
+      ProfilePage(),
     ];
     super.initState();
   }

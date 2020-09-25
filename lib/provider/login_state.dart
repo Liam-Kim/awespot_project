@@ -1,3 +1,5 @@
+import 'package:awespot_project/model/map_key.dart';
+import 'package:awespot_project/provider/user_state.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/widgets.dart';
@@ -9,18 +11,20 @@ enum Status {
   Authenticated,
   Authenticating,
   Unauthenticated,
-  Unjoined
+  // Unjoined
 }
 
 SharedPreferences prefs;
 
-class UserRepository with ChangeNotifier {
+class LoginState with ChangeNotifier {
+ 
   FirebaseAuth _auth;
   FirebaseUser _user;
   Status _status = Status.Uninitialized;
   GoogleSignIn googleSignIn = GoogleSignIn();
 
-  UserRepository.instance() : _auth = FirebaseAuth.instance {
+
+  LoginState.instance() : _auth = FirebaseAuth.instance {
     _auth.onAuthStateChanged.listen(_onAuthStateChanged);
   }
 
@@ -29,24 +33,24 @@ class UserRepository with ChangeNotifier {
 
   set setStatus(Status changedStatus) {
     _status = changedStatus;
-    print("set status 들어왔니");
     notifyListeners();
   }
 
-  Future<bool> signIn(String email, String password) async {
-    try {
-      _status = Status.Authenticating;
-      notifyListeners();
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return true;
-    } catch (e) {
-      _status = Status.Unauthenticated;
-      notifyListeners();
-      return false;
-    }
-  }
+  // Future<bool> signIn(String email, String password) async {
+  //   try {
+  //     _status = Status.Authenticating;
+  //     notifyListeners();
+  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
+  //     return true;
+  //   } catch (e) {
+  //     _status = Status.Unauthenticated;
+  //     notifyListeners();
+  //     return false;
+  //   }
+  // }
 
   Future<bool> signInWithGoogle() async {
+    _status = Status.Authenticating;
     prefs = await SharedPreferences.getInstance();
 
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -59,9 +63,9 @@ class UserRepository with ChangeNotifier {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      _status = Status.Authenticating;
-      notifyListeners();
+      
       _user = (await _auth.signInWithCredential(credential)).user;
+      notifyListeners();
 
       return true;
     } catch (err) {
@@ -86,17 +90,24 @@ class UserRepository with ChangeNotifier {
       notifyListeners();
     } else {
       _user = firebaseUser;
-      Firestore.instance
-          .collection('User')
+      await Firestore.instance
+          .collection(COLLECTION_USERS)
           .document(firebaseUser.uid)
           .get()
           .then((value) {
         value.exists
             ? _status = Status.Authenticated
-            : _status = Status.Unjoined;
+            : _createAccount(firebaseUser);
         notifyListeners();
       });
       //_user = firebaseUser;
     }
+  }
+
+  Future<void> _createAccount(FirebaseUser firebaseUser) async {
+    await userRepository.createUser(
+        userKey: firebaseUser.uid, email: firebaseUser.email);
+    _status = Status.Authenticated;
+    notifyListeners();
   }
 }

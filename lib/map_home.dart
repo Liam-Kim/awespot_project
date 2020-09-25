@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:provider/provider.dart';
-import 'user_repository.dart';
+import 'provider/login_state.dart';
 
 import 'package:location/location.dart' as lo;
 import "package:latlong/latlong.dart";
@@ -451,14 +451,14 @@ class _MapHomeState extends State<MapHome> with TickerProviderStateMixin {
                                     ),
                                     Container(
                                       foregroundDecoration: BoxDecoration(
-                                          color: Colors.white,
-                                          gradient: LinearGradient(
-                                              begin: Alignment.bottomLeft,
-                                              end: Alignment.topLeft,
-                                              colors: [
-                                                Colors.black12,
-                                                Colors.white
-                                              ]),
+
+                                          // gradient: LinearGradient(
+                                          //     begin: Alignment.bottomLeft,
+                                          //     end: Alignment.topLeft,
+                                          //     colors: [
+                                          //       Colors.black26,
+                                          //       Colors.transparent
+                                          //     ]),
                                           borderRadius:
                                               BorderRadius.circular(7.0)),
                                     ),

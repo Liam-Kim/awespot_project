@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'user_repository.dart';
+import 'provider/login_state.dart';
 
 class SpotPage extends StatelessWidget {
 

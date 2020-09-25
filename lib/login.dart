@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'user_repository.dart';
+import 'provider/login_state.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserRepository>(context);
+    final user = Provider.of<LoginState>(context);
     return Scaffold(
         body: user.status == Status.Authenticating
             ? Center(child: CircularProgressIndicator())
