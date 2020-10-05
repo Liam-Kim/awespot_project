@@ -54,7 +54,21 @@ class _HomePageState extends State<HomePage> {
             title: new Text(""),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.add_box, size: 30),
+            icon: InkWell(
+              child: IconButton(
+                icon: Icon(
+                  Icons.add_box,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UploadPage()),
+                );
+              },
+            ),
             title: new Text(""),
           ),
           BottomNavigationBarItem(
@@ -62,7 +76,21 @@ class _HomePageState extends State<HomePage> {
             title: new Text(""),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.perm_identity, size: 30),
+            icon: InkWell(
+              child: IconButton(
+                icon: Icon(
+                  Icons.perm_identity,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+              },
+            ),
             title: new Text(""),
           ),
         ],

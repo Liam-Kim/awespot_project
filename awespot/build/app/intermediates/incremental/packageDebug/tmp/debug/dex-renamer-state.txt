@@ -1,4 +1,4 @@
-#Wed Aug 26 19:41:17 KST 2020
+#Mon Oct 05 18:03:14 KST 2020
 base.0=/Users/user/AndroidStudioProjects/awespot/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

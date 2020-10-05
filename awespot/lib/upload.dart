@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:typed_data';
 import 'package:path/path.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -5,14 +6,18 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:switch_it/switch_it.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'package:location/location.dart';
 import 'package:flutter/cupertino.dart';
+
+
+bool checkColor = false;
+List<String> circleColor = ["#111E39", "#3B5284", "#ECAE00", "#F8CF5F", "#D47D7A", "#F1A3A0", "#FFFFFF"];
+List<bool> circleBool = [false, false, false, false, false, false, false];
+int idx = 0;
 
 class UploadPage extends StatefulWidget{
 
@@ -25,7 +30,10 @@ class _UploadPageState extends State<UploadPage> {
   String _error = 'No Error Dectected';
   final _titleTextConroller = TextEditingController();
   final _contentTextConroller = TextEditingController();
+  var selectedItem ;
+  var selected ;
   bool status = false;
+
   StorageReference storageImageRef;
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   bool checkClicked = false;
@@ -49,7 +57,6 @@ class _UploadPageState extends State<UploadPage> {
 
     return file;
   }
-
   Widget showGPS(){
     String location = "위치 정보 없음";
     double latitude = 0.0;
@@ -80,7 +87,6 @@ class _UploadPageState extends State<UploadPage> {
       ),
     );
   }
-
   Future<Null> _uploadImages() async {
       print("Length: ${images.length}");
      images.forEach((f) async {
@@ -137,8 +143,6 @@ class _UploadPageState extends State<UploadPage> {
     });
 
   }
-
-
   Widget buildInitAsset(BuildContext context){
     MediaQueryData queryData = MediaQuery.of(context);
     double width = queryData.size.width;
@@ -173,7 +177,6 @@ class _UploadPageState extends State<UploadPage> {
       ),
     );
   }
-
   Widget buildImageView(BuildContext context){
     MediaQueryData query = MediaQuery.of(context);
 
@@ -185,6 +188,10 @@ class _UploadPageState extends State<UploadPage> {
 
     for(int i=0; i<images.length; i++){
       print(i);
+    }
+
+    if(images.length == 0){
+      return buildInitAsset(context);
     }
 
     return Container(
@@ -221,6 +228,7 @@ class _UploadPageState extends State<UploadPage> {
     double width = query.size.width;
     double height = query.size.height;
 
+
     return Scaffold(
       backgroundColor: HexColor("#121212"),
       appBar: AppBar(
@@ -233,7 +241,10 @@ class _UploadPageState extends State<UploadPage> {
                 color: HexColor("#9A9A9A"),
               ),
             ),
-          )
+          ),
+          onTap: (){
+            Navigator.of(context).pop();
+          },
         ),
         actions: [
           InkWell(
@@ -370,6 +381,7 @@ class _UploadPageState extends State<UploadPage> {
           ),
         ),
       ),
+
       body: ListView(
         children: [
           checkClicked ?  buildImageView(context) : buildInitAsset(context),
@@ -383,8 +395,10 @@ class _UploadPageState extends State<UploadPage> {
             child: Row(
               children: [
                 Container(
-                  child: Text(
-                    "카테고리 선택",
+                  child: selected == null ? Text("카테고리 선택", style: TextStyle(
+                    color: HexColor("#FFFFFF"),
+                  ),) : Text(
+                    "$selected",
                     style: TextStyle(
                       color: HexColor("#FFFFFF"),
                     ),
@@ -398,8 +412,8 @@ class _UploadPageState extends State<UploadPage> {
                           Icons.play_arrow,
                           color: Colors.white,
                         ),
-                        onPressed: (){
-                          showModalBottomSheet<void>(
+                        onPressed: () async{
+                           selectedItem = await showModalBottomSheet(
                               isScrollControlled: false,
                               isDismissible: false,
                               context: context,
@@ -436,6 +450,16 @@ class _UploadPageState extends State<UploadPage> {
                                               ),
                                             )
                                         ),
+                                        onTap: (){
+                                          showModalBottomSheet(
+                                              context: context,
+                                              isScrollControlled: false,
+                                              isDismissible: false,
+                                              builder: (BuildContext context) {
+                                                return AddCategory();
+                                              }
+                                          );
+                                        },
                                       ),
                                       InkWell(
                                         child: Container(
@@ -449,6 +473,13 @@ class _UploadPageState extends State<UploadPage> {
                                               ),
                                             )
                                         ),
+                                        onTap: (){
+                                          print(selectedItem);
+                                          setState(() {
+                                            selected = selectedItem;
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
                                       ),
                                     ],
                                     title: Text(
@@ -462,6 +493,7 @@ class _UploadPageState extends State<UploadPage> {
                                   body: CupertinoPicker.builder(
                                     backgroundColor: HexColor("#424242"),
                                     onSelectedItemChanged: (value) {
+                                        selectedItem = categories[value];
                                     },
                                     itemExtent: 40.0,
                                       childCount: categories.length,
@@ -533,4 +565,483 @@ class HexColor extends Color {
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+}
+
+class AddCategory extends StatefulWidget{
+  @override
+  _AddCategoryState createState() => _AddCategoryState();
+}
+
+class _AddCategoryState extends State<AddCategory> {
+
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData query = MediaQuery.of(context);
+    final _textController = TextEditingController();
+
+    double height = query.size.height;
+
+    return Container(
+      height: height * 0.4,
+      child: Scaffold(
+        backgroundColor: HexColor("#424242"),
+        appBar: AppBar(
+          elevation: 0,
+          shape: Border(bottom: BorderSide(color: HexColor("#B1B1B1"))),
+          backgroundColor: HexColor("#424242"),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            InkWell(
+              child: Container(
+                child: Center(
+                  child: Text(
+                    "생성",
+                    style: TextStyle(
+                      color: HexColor("#FFFFFF"),
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              ),
+            ),
+          ],
+          title: Text("카테고리 선택"),
+        ),
+        body: ListView(
+          children: [
+            Container(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: TextField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: HexColor("#E4E4E4")),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: HexColor("#E4E4E4")),
+                            ),
+                            hintText: "카테고리를 입력하세요",
+                            hintStyle: TextStyle(
+                                color: HexColor("#9A9A9A")
+                            )
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "카테고리 색",
+                            style: TextStyle(
+                              color: HexColor("#EFEFEF"),
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          CreateCircleColor(),
+                        ]
+                    ),
+                  ],
+                )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CreateCircleColor extends StatefulWidget{
+
+  @override
+  _CreateCircleColorState createState() => _CreateCircleColorState();
+}
+
+class _CreateCircleColorState extends State<CreateCircleColor> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[0] == true){
+                setState(() {
+                  circleBool[0] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[1] = false;
+                  circleBool[2] = false;
+                  circleBool[3] = false;
+                  circleBool[4] = false;
+                  circleBool[5] = false;
+                  circleBool[6] = false;
+                  circleBool[0] = true;
+                });
+              }
+            },
+            child: circleBool[0] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[0]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[0]),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[1] == true){
+                setState(() {
+                  circleBool[1] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[0] = false;
+                  circleBool[2] = false;
+                  circleBool[3] = false;
+                  circleBool[4] = false;
+                  circleBool[5] = false;
+                  circleBool[6] = false;
+                  circleBool[1] = true;
+                });
+              }
+            },
+            child: circleBool[1] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[1]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[1]),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[2] == true){
+                setState(() {
+                  circleBool[2] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[1] = false;
+                  circleBool[0] = false;
+                  circleBool[3] = false;
+                  circleBool[4] = false;
+                  circleBool[5] = false;
+                  circleBool[6] = false;
+                  circleBool[2] = true;
+                });
+              }
+            },
+            child: circleBool[2] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[2]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[2]),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[3] == true){
+                setState(() {
+                  circleBool[3] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[1] = false;
+                  circleBool[2] = false;
+                  circleBool[0] = false;
+                  circleBool[4] = false;
+                  circleBool[5] = false;
+                  circleBool[6] = false;
+                  circleBool[3] = true;
+                });
+              }
+            },
+            child: circleBool[3] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[3]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[3]),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[4] == true){
+                setState(() {
+                  circleBool[4] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[1] = false;
+                  circleBool[2] = false;
+                  circleBool[3] = false;
+                  circleBool[0] = false;
+                  circleBool[5] = false;
+                  circleBool[6] = false;
+                  circleBool[4] = true;
+                });
+              }
+            },
+            child: circleBool[4] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[4]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[4]),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[5] == true){
+                setState(() {
+                  circleBool[5] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[1] = false;
+                  circleBool[2] = false;
+                  circleBool[3] = false;
+                  circleBool[4] = false;
+                  circleBool[0] = false;
+                  circleBool[6] = false;
+                  circleBool[5] = true;
+                });
+              }
+            },
+            child: circleBool[5] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[5]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[5]),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+          child: InkWell(
+            onTap: () {
+              if(circleBool[6] == true){
+                setState(() {
+                  circleBool[6] = false;
+                });
+              }
+              else {
+                setState(() {
+                  circleBool[1] = false;
+                  circleBool[2] = false;
+                  circleBool[3] = false;
+                  circleBool[4] = false;
+                  circleBool[5] = false;
+                  circleBool[0] = false;
+                  circleBool[6] = true;
+                });
+              }
+            },
+            child: circleBool[6] ? Stack(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(circleColor[6]),
+                  ),
+                ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  child: Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ) : Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: HexColor(circleColor[6]),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

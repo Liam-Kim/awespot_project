@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'setting.dart';
 
 class ProfilePage extends StatelessWidget{
 
@@ -16,6 +17,17 @@ class ProfilePage extends StatelessWidget{
       child: Scaffold(
         backgroundColor: HexColor("#080808"),
         appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings, color: HexColor("#FFFFFF"),),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingPage()),
+                );
+              },
+            )
+          ],
           backgroundColor:  HexColor("#080808"),
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
@@ -52,10 +64,10 @@ class ProfilePage extends StatelessWidget{
               indicatorColor: HexColor("#ECAE00"),
               labelColor: HexColor("#424242"),
               tabs: [
-                Text("업적", style: TextStyle(
+                Text("프로필", style: TextStyle(
                   color: Colors.white,
                 ),),
-                Text("나의 여행", style: TextStyle(
+                Text("업적", style: TextStyle(
                   color: Colors.white,
                 ),),
                 Text("보관함", style: TextStyle(
