@@ -97,7 +97,8 @@ class _UploadPageState extends State<UploadPage> {
 
       final StorageUploadTask uploadTask = _ref.putFile(image);
 
-      await uploadTask.onComplete;
+      var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      print("url:"+dowurl.toString());
     });
   }
 

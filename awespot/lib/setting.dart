@@ -13,7 +13,7 @@ class SettingPage extends StatelessWidget{
         ),),
         centerTitle: true,
         backgroundColor: HexColor("#080808"),
-      ),
+      ), 
     );
   }
 }
