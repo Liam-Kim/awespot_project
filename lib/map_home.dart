@@ -297,7 +297,7 @@ class _MapHomeState extends State<MapHome> with TickerProviderStateMixin {
 
     // Create a animation controller that has a duration and a TickerProvider.
     var controller = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 1000),); //vsync: this);
     // The animation determines what path the animation will take. You can try different Curves values, although I found
     // fastOutSlowIn to be my favorite.
     Animation<double> animation =

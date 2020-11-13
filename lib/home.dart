@@ -1,7 +1,7 @@
 import 'package:awespot_project/feed.dart';
 import 'package:awespot_project/spot.dart';
 import 'package:awespot_project/provider/login_state.dart';
-
+import 'dart:io';
 import 'upload_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

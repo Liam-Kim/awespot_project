@@ -248,14 +248,16 @@ class _UploadPageState extends State<UploadPage> {
       appBar: AppBar(
         shape: Border(bottom: BorderSide(color: HexColor("#B1B1B1"))),
         leading: InkWell(
-            child: Center(
-          child: Text(
-            "뒤로",
-            style: TextStyle(
-              color: HexColor("#9A9A9A"),
+          child: Center(
+            child: Text(
+              "뒤로",
+              style: TextStyle(
+                color: HexColor("#9A9A9A"),
+              ),
             ),
           ),
-        )),
+          onTap: () => Navigator.pop(context),
+        ),
         actions: [
           InkWell(
             child: Container(

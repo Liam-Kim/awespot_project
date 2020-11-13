@@ -43,6 +43,7 @@ dependencies:
   #data base
   cloud_firestore:
   firebase_storage:
+  rxdart:
 
   flutter:
     sdk: flutter

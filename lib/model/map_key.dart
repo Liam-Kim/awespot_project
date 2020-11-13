@@ -14,8 +14,8 @@ const KEY_USERNAME = 'username';
 const KEY_COMMENT = 'comment';
 const KEY_COMMENTTIME = 'commenttime';
 
+const KEY_POSTKEY = 'post_key';
 const KEY_POSTIMG = 'postimg';
-const KEY_POSTURI = 'posturi';
 const KEY_CAPTION = 'caption';
 const KEY_LASTCOMMENT = 'last_comment';
 const KEY_LASTCOMMENTOR = 'last_commentor';

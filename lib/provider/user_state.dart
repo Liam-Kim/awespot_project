@@ -35,39 +35,10 @@ class UserModelState extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  // bool amIFollowingThisUser(String userKey) {
-  //   return _myUserData.followings.contains(userKey);
-  // }
+  bool amIFollowingThisUser(String otherUserKey) {
+    if(_userModel == null || _userModel == null || _userModel.followings.isEmpty) return false;
+    return _userModel.followings.contains(otherUserKey);
+  }
 }
 
 // enum MyUserDataStatus { progress, none, exist }
-
-class UserRepository with Transformers {
-  Future<void> createUser({String userKey, String email}) async {
-    final DocumentReference userRef =
-        Firestore.instance.collection(COLLECTION_USERS).document(userKey);
-
-    DocumentSnapshot snapshot = await userRef.get();
-    if (!snapshot.exists) {
-      userRef.setData(UserModel.geMapForCreateUser(email));
-    }
-  }
-
-  Stream<UserModel> getUserModelStream(String userKey) {
-    return Firestore.instance
-        .collection(COLLECTION_USERS)
-        .document(userKey)
-        .snapshots()
-        .transform(toUser);
-  }
-
-  Future<void> getData() {
-    return Firestore.instance
-        .collection('users')
-        .document('uid')
-        .get()
-        .then((doc) => null);
-  }
-}
-
-UserRepository userRepository = UserRepository();

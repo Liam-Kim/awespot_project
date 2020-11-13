@@ -1,5 +1,6 @@
 import 'package:awespot_project/model/map_key.dart';
 import 'package:awespot_project/provider/user_state.dart';
+import 'package:awespot_project/repo/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/widgets.dart';

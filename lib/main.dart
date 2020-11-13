@@ -1,4 +1,5 @@
 import 'package:awespot_project/model/user_model.dart';
+import 'package:awespot_project/repo/user_repository.dart';
 import 'package:awespot_project/provider/user_state.dart';
 import 'package:awespot_project/spot.dart';
 import 'package:firebase_auth/firebase_auth.dart';
